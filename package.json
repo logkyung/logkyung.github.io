@@ -1,9 +1,9 @@
 {
-  "name": "zoomkoding.com",
+  "name": "logkyung",
   "private": false,
-  "description": "A neat blog theme for developers",
+  "description": "Kyung's log",
   "version": "3.0.0",
-  "author": "zoomkoding <zoomkoding@gmail.com>",
+  "author": "logkyung <logkyung@gmail.com>",
   "dependencies": {
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
