@@ -7,7 +7,7 @@ tags: 블로그
 categories: 블로그
 ---
 
-## :bulb: JavaScript 문법 정리
+## 💡 JavaScript 문법 정리
 - return 함수의 역할은 **값 반환** , **함수 종료** 두 가지가 있다.
 - 함수에 return문의 없으면 함수 종료 시 undefined 반환.
 - undefined값의 경우
@@ -22,7 +22,7 @@ categories: 블로그
 	- 값을 재할당할 수 없기 때문에 값을 보호할 수 있다.
 	- 선언 시 값을 할당해주지 않으면 안된다.
 	- 상수 이름은 대문자와 밑줄로 표현해야 한다.
-- for statement
+### for statement
 	```
 	for (초기화; 조건부; 증감부) {
 	  동작부분;
@@ -32,7 +32,7 @@ categories: 블로그
 	- 하지만 for 특성 상 증감부가 있기 때문에 block 내의 동작부에는 실제 반복할 내용만 집중, 조건과 관련된 부분은 소괄호 내의 증감부에 작성하여 목적에 맞는 코드 작성
 	- 초기화 부분에서 생성한 변수는 로컬변수이다.
 	- 조건 변수 생성 시 let 사용하는 것을 권장
-- while statement
+### while statement
 	```
 	while (조건부) {
 	  동작부분;
@@ -46,7 +46,7 @@ categories: 블로그
 		- 반복문 내에서도 변수를 다루면서
 		- 반복문이 종료된 후에도 변수를 사용해야 할 때
 	- continue;를 사용할 겨우에는 증감조건은 continue 앞에 작성해야 무한루프에 빠지지 않는다.
-- Object: 객체
+### Object: 객체
 	- 여러가지 값을 한 번에 저장해야 할 때 사용
 	- 중괄호 { }로 생성
 	- 여러가지 다양한 값들을 쉼표(,)로 구분하여 저장
@@ -74,7 +74,7 @@ categories: 블로그
 			- `obj['Key1'];`
 			- `obj['Key1']['key1'];`
 		- 존재하지 않는 property에 접근할 경우 undefined.
-- for ... in
+### for ... in
 	```
 	let obj = {
 		name: 'kyung',
@@ -105,3 +105,17 @@ categories: 블로그
 		```
 		- for문을 사용하지 않고 콘솔에 객체를 출력만 해도 위와 같은 순서로 출력된다.
 		- 자동으로 정렬되는 특성이 의도치 않은 결과를 가져올 수도 있기 때문에 일반적으로 정수형 프로퍼티는 잘 사용되지 않는다.
+
+### Array: 배열
+	- 배열도 객체의 한 종류이다.
+	`let dataType = ['number', 'string', 'boolean', 'object', 'null', 'undefined']`
+	- 존재하지 않는 요소에 접근하려고 하면 undefined 반환.
+	- 배열의 메소드를 삭제할 때 delete 키워드를 사용하면 완벽하게 제거되지 않는다. (값은 지워지지만 그 자리에 undefined 값이 들어가 배열의 길이는 그대로)
+	- 완전히 제거하려면 splice라는 메소드를 사용해야 한다.
+	- splice(startIndex, deleteCount, item)
+		-	배열이름.splice(startIndex); // startIndex부터 뒤의 모든 요소 삭제
+		- 배열이름.splice(startIndex, deleteCount); // startIndex부터 count개의 요소 삭제
+		- 배열이름.splice(startIndex, deleteCount, item); // 삭제한 요소의 자리에 item값 추가
+		- 만약 2개 이상의 값을 넣으면 나머지 요소의 순서는 뒤로 밀린다.
+		- deleteCount에 0을 넣고 item 값을 추가하면 아무것도 삭제되지 않고 원하는 자리에 원소를 추가할 수 있다.
+		- splice를 잘 활용하는 것이 배열을 잘 다루는 법.
