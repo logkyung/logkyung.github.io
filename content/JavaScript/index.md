@@ -222,3 +222,73 @@ console.log(array[1][1]); // 4
 	- start인덱스부터 end-1까지의 범위
 	- 파라미터를 한 개만 넣으면 start인덱스부터 끝까지 범위
 	- 파라미터가 없을 경우 전체 문자열
+
+### 기본형과 참조형
+- 객체를 제외한 number, string, boolean, null, undefined 타입을 기본형(primitive type)이라고 한다.
+- 기본형을 변수에 담아 사용할 시 값이 그대로 할당된다.
+```
+let x = 3;
+let y = x;
+
+console.log(x); // 3
+console.log(y); // 3
+
+y = 5;
+
+console.log(x); // 3
+console.log(y); // 5
+```
+- 객체의 경우 참조형(reference type)이라고 하는데 값을 변수에 담아 사용할 시 주소값이 할당된다.
+```
+let x = {
+	name: 'Lee',
+};
+let y = x;
+
+y.birth = 2023;
+
+console.log(x); // {name: 'Lee', birth: 2023}
+console.log(y); // {name: 'Lee', birth: 2023}
+```
+- 변수에 값을 가리키는 주소값이 할당되기 때문에 y의 값을 변경하면 x는 y가 가리키는 값과 같은 값을 가리키므로 x를 출력해도 birth가 추가되는 것.
+- 배열도 참조형
+
+### 참조형 복사
+```
+let arr1 = [1, 2, 3];
+let arr2 = arr1;
+
+arr2.push(4);
+
+console.log(arr1); // [1, 2, 3, 4]
+console.log(arr2); // [1, 2, 3, 4]
+
+let arr3 = arr1.slice();
+
+arr3.push(5);
+
+console.log(arr1); // [1, 2, 3, 4]
+console.log(arr3); // [1, 2, 3, 4, 5]
+```
+- 배열의 주소값이 아닌 배열 자체를 복사하고 싶을 때 slice 사용
+- 객체값을 복사하는 방법은 두 가지
+	1. Object객체의 assign메소드 이용
+	```
+	let obj1 = {
+		name: 'Lee',
+	};
+	let obj2 = Object.assign({}, obj1);
+	```
+	2. for ... in문으로 복사
+	```
+	let obj1 = {
+		name: 'Lee',
+		birth: 2023,
+		gender: 'f',
+	};
+	let obj2 = {};
+	for (let key in obj1) {
+		obj2[key] = obj1[key];
+	}
+	```
+	- 같은 값을 갖지만 서로 독립적인 객체로 복사할 수 있다.
