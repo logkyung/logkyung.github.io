@@ -36,6 +36,24 @@ JSON 문법은 자바스크립트 문법과 거의 유사하다.
 - JSON은 undefined, NaN, Infinity 등을 사용할 수 없다.
 - 주석을 달 수 없다. 코드가 아닌 데이터 포맷이기 때문
 <br>
-### JSON 데이터와 객체의 변환
-- JSON.parse(result) : JSON 데이터를 객체로 변환
-- JSON.stringify(data): 객체를 JSON 데이터로 변환
+### JSON 데이터 다루기
+1. string type의 JSON vs JS 객체
+- JSON.stringify(data): 자바스크립트의 객체는 정의하지 않아도 기본으로 내장하는 프로퍼티들이 존재하는데 이는 서버에 보낼 필요가 없는 것들. 따라서 객체의 데이터만을 string으로 변환하는 serialization을 해야 한다.
+- JSON.parse(result): 반대로 서버에서 JSON 데이터를 가져올 때 string type의 키를 가져올 수 없기 때문에 string type을 객체로 변환하는 deserialization을 해야 한다.
+2. JSON 메소드
+response의 내용을 추출하기 위해 response.text()를 호출한 후 JSON.parse(result) 과정을 거쳤는데 text 대신 json() 메소드를 사용하여 바로 deserialization을 할 수 있다.
+```
+/*
+fetch('URL')
+  .then((response) => response.text())
+  .then((result) => {
+    const users = JSON.parse(result);
+  });
+*/
+
+fetch('URL')
+  .then((response) => response.json())
+  .then((result) => { const users = result; });
+```
+response 객체의 json메소드를 호출하면 response 내용이 JSON에 해당하는 경우 바로 deserialization까지 수행. 하지만 JSON 데이터가 아닌 경우에 에러를 발생시킨다.
+<br>
