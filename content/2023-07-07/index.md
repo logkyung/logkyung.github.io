@@ -70,8 +70,80 @@ events라는 코어모듈을 로드해서 사용할 수 있고, events는 EventE
 `const myEmitter = new EventEmitter();`
 EventEmitter 클래스로 myEmitter라는 객체를 생성한다.
 
-`myEmitter.on(...)`
+`myEmitter.on(eventName, listener)`
 on 메소드를 이용해 이벤트가 발생했을 때 실행할 콜백을 등록할 수 있다.
 
-`myEmitter.emit('테스트명');`
+`myEmitter.emit(eventName);`
 이후 emit 메소드로 이벤트를 직접 발생시킬 수 있다.
+
+```
+const EventEmitter = require('events');
+
+const myEmitter = new EventEmitter();
+
+myEmitter.on('event', () => {
+	console.log('Success');
+});
+
+myEmitter.emit('event');
+```
+이때 request에는 client의 요청 정보가 담겨있으며, response 객체는 콜백 함수 안에서 가공되어 client로 보낼 데이터를 담을 객체이다.
+
+EventEmitter 객체는 많은 코어 모듈의 기반이 되기 때문에 제대로 이해하는 것이 중요하다.
+
+### EventEmitter 사용법
+EventEmitter 객체를 사용할 때 주의할 점이 있는데, **이벤트를 발생시키기 전에 콜백 설정을 먼저 해줘야 한다**는 것이다.
+만약 이벤트를 먼저 발생시키면 콜백 함수가 등록된 후에는 어떠한 이벤트도 발생하지 않기 때문에 함수는 동작하지 않는다.
+
+이벤트의 특징에는 다음이 있다.
+- 하나의 이벤트에 여러 개의 콜백을 설정할 수 있다
+- 설정된 콜백들은 이벤트가 발생하면 등록된 순서대로 실행한다
+- 이벤트를 발생시키고 콜백이 실행되는 과정은 하나의 EventEmitter 객체에서만 이루어진다.
+
+예를 들어, 아래와 같은 코드를 실행시키면 어떤 결과가 출력될까?
+```
+const EventEmitter = require('events');
+const myEmitter = new EventEmitter();
+const myEmitter2 = new EventEmitter();
+
+myEmitter.on('event', () => {
+	console.log('Success');
+});
+
+myEmitter2.on('event', () => {
+	console.log('Success2');
+});
+
+myEmitter.emit('event');
+myEmitter.emit('event');
+```
+정답은 Success가 두 번 출력된다. 이벤트 이름은 'event'로 같지만 이 이벤트를 발생시키는 객체는 myEmitter객체이고 이는 myEmitter2와는 다른 객체이기 때문이다.
+
+`myEmitter.emit(eventName[, ...args]);`
+이벤트에 추가 정보를 함께 전달할 수도 있다. 전달할 정보를 추가 인자로 전달해주면 된다.
+
+```
+myEmitter.on(eventName, (arg1, arg2) => {
+	console.log(arg1);
+	console.log(arg2);
+});
+```
+파라미터로 정보를 받아올 수 있다. 하지만 모든 인자를 받아야 하는 것은 아니다. 또한 여러 인자를 하나씩 넘겨주는 것 보다 여러 정보를 담은 객체 하나만을 넘겨주는 것이 좋다.
+<br>
+### 웹 서버 열어보기
+```
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+	console.log(req.url);
+});
+
+server.listen(3000);
+```
+먼저 http 코어 모듈을 로드해 http 객체에 저장한다.
+이후 http 객체의 createServer 메소드로 서버를 열고, 클라이언트의 요청이 들어올 때마다 실행될 함수를 등록한다.
+server.listen(3000);은 서버가 3000번의 포트 번호를 가지고 클라이언트의 요청을 기다리게 한다.
+<br>
+### 라우팅
+요청이 들어온 URL에 따라 서버가 다른 응답을 보내게 하는 것을 URL 라우팅 혹은 라우팅이라고 한다. 라우팅은 서버에서 이루어져야 할 가장 기본적인 동작 중 하나이다.
+URL에 따라 다른 응답을 보내려면 클라이언트가 요청한 URL을 가져와야 한다.  URL은 req 객체의 프로퍼티로 들어오기 때문에 req.url 로 접근할 수 있다. 그러면 url은 도메인 네임 뒤의 /부터 경로를 모두 가져온다.
