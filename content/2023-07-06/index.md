@@ -1,6 +1,6 @@
 ---
 emoji: 💡
-title: JS 웹 개발
+title: JS 웹 개발 (1)
 date: '2023-07-06 21:00:00'
 author: logkyung
 tags: 블로그

@@ -1,6 +1,6 @@
 ---
 emoji: 💡
-title: Node.js 정리
+title: Node.js 정리 (1)
 date: '2023-07-07 22:10:00'
 author: logkyung
 tags: 블로그
