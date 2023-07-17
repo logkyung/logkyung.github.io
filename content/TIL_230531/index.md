@@ -1,6 +1,6 @@
 ---
 emoji: 💡
-title: TIL: 파이썬 자료구조와 알고리즘 (4)
+title: 파이썬 자료구조와 알고리즘 (4)
 date: '2023-05-31 22:35:00'
 author: logkyung
 tags: 블로그
