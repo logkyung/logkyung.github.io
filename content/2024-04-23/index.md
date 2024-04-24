@@ -1,6 +1,6 @@
 ---
 emoji: ✏️
-title: 한 입 크기로 잘라 먹는 TypeScript (1)
+title: 한 입 크기로 잘라 먹는 TypeScript (2)
 date: '2024-04-23 23:00:00'
 author: logkyung
 tags: TypeScript
